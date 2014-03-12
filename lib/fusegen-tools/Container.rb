@@ -86,9 +86,9 @@ class Container
         #3.0.7.RELEASE spring caused a problem in 6.0 skipping
       #2.3.0.redhat-60024 -v ersion from karaf 
       if f.match(/fabric/i) or 
-          f.match(/patch-client/i) or
-          f.match(/servicemix/i) or f.match(/nmr/i) or f.match(/jpa-hibernate/) or 
-          f.match (/jbi/i) or f.match(/insight/i) or f.match(/spring-/i)
+          f.match(/patch-client/i) 
+#          f.match(/servicemix/i) or f.match(/nmr/i) or f.match(/jpa-hibernate/) or 
+#          f.match (/jbi/i) or f.match(/insight/i) or f.match(/spring-/i)
        skipped.push(f)
       else
         container.installFeature("#{f}")

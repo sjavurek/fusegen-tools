@@ -1,4 +1,4 @@
-require '../lib/Utilities/Container.rb'
+require '../lib/fusegen-tools/Container.rb'
 
 container = Container.new("/Users/sjavurek/Fuse/JBossFuse/6.0/jboss-fuse-6.0.0.redhat-024","admin","admin")
 #container.installUninstalledNonFabricFeatures(container)
