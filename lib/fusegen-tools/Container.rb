@@ -71,32 +71,36 @@ class Container
 
   # 
   # Loop through list of un-installed non-fabric features and install them
-  def installUninstalledNonFabricFeatures(container)
+  def installUninstalledFeatures(container, skipList)
    
     features = container.getUninstalledFeatures
-   
+     puts  skipList.length()
     #puts features.length
     #puts features
     # Install all features except fabric ones 
     skipped = Array.new
     features.each_with_index do | line, index |
-        
-      f =  "#{line}"[("#{line}".rindex("]") +2).."#{line}".length].split("\s")[0]
-      
-        #3.0.7.RELEASE spring caused a problem in 6.0 skipping
-      #2.3.0.redhat-60024 -v ersion from karaf 
-      if f.match(/fabric/i) or 
-          f.match(/patch-client/i) 
-#          f.match(/servicemix/i) or f.match(/nmr/i) or f.match(/jpa-hibernate/) or 
-#          f.match (/jbi/i) or f.match(/insight/i) or f.match(/spring-/i)
-       skipped.push(f)
-      else
-        container.installFeature("#{f}")
-      end
     
+     skip=false
+      if line.rindex("]") != nil
+        f =  "#{line}"[("#{line}".rindex("]") +2).."#{line}".length].split("\s")[0]
+  
+        skipList.each do |item|
+         if f.include? item
+         # puts " ** Skipping"
+           skipped.push(f)
+           skip = true
+         end
+        end
+        if skip == false
+         container.installFeature("#{f}")
+         #puts "installing " +  "#{f}"
+       end
+     
+    end
    end
    
-   puts container.getUninstalledFeatures().length
+   #puts container.getUninstalledFeatures().length
    puts "Skipped #{skipped.length}: "
    pp skipped
     
